@@ -105,7 +105,7 @@
 
 <script setup>
 import config from "../config.js";
-import { ref, onMounted, watch, defineEmits } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch, defineEmits } from "vue";
 
 const transcript = ref([]);
 const htmlContent = ref("");
@@ -164,53 +164,15 @@ onMounted(() => {
 });
 
 watch(currentVoice, (newVoice) => {
-  if (appInstance && !appInstance.webrtc) {
-    appInstance.currentVoice = newVoice;
-  } else if (appInstance && appInstance.webrtc) {
-    // Optionally restart the session with the new voice
-    appInstance.stop();
-    appInstance = new App(config, {
-      updateTranscript: (message, type) => {
-        const newMessage = {
-          text: message,
-          type,
-          isSpeaking: type === "assistant",
-        };
+  if (appInstance) {
+    appInstance.handleVoiceChange(newVoice);
+  }
+});
 
-        transcript.value.unshift(newMessage);
-
-        // Simulate the AI finishing speaking after a calculated time
-        if (type === "assistant") {
-          // Estimate speaking time based on message length (roughly 100ms per character)
-          const speakTime = Math.max(1500, message.length * 80);
-
-          setTimeout(() => {
-            newMessage.isSpeaking = false;
-          }, speakTime);
-        }
-      },
-      updateStatus: (msg) => {
-        status.value = msg;
-      },
-      showError: (msg) => {
-        error.value = msg;
-      },
-      hideError: () => {
-        error.value = "";
-      },
-      updateButtons: (connected) => {
-        console.log("Connection status:", connected);
-        isConnected.value = connected;
-      },
-      updateVoiceSelector: (enabled) => {
-        isReady.value = enabled;
-      },
-      updateHTML: (inputHtml, type) => {
-        htmlContent.value = inputHtml;
-      },
-    });
-    appInstance.currentVoice = newVoice;
-    appInstance.init();
+onBeforeUnmount(() => {
+  if (appInstance) {
+    appInstance.disconnectPort();
+    appInstance = null;
   }
 });
 
