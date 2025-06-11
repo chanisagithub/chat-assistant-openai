@@ -164,8 +164,14 @@ onMounted(() => {
 });
 
 watch(currentVoice, (newVoice) => {
-  if (appInstance) {
-    appInstance.handleVoiceChange(newVoice);
+  if (appInstance && !appInstance.peerConnection) {
+    // Just update the desired voice when no session is active
+    appInstance.currentDesiredVoice = newVoice;
+  } else if (appInstance && appInstance.peerConnection) {
+    // Restart the session with the new voice if connected
+    appInstance.stop();
+    appInstance.currentDesiredVoice = newVoice;
+    appInstance.init();
   }
 });
 
