@@ -1,0 +1,114 @@
+/* Styles for the voice assistant icon */
+.voice-assistant-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #007bff;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.voice-assistant-icon:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for the main plugin container */
+.voice-assistant-plugin {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#pluginStatus, #pluginError {
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+#pluginError {
+  color: red;
+}
+
+#pluginTranscriptContainer {
+  border: 1px solid #eee;
+  padding: 8px;
+  margin-bottom: 10px;
+  height: 200px;
+  overflow-y: scroll;
+  font-size: 0.95em;
+}
+
+#pluginTranscriptContainer .message {
+  padding: 5px;
+  margin-bottom: 3px;
+  border-radius: 4px;
+}
+
+#pluginTranscriptContainer .assistant-message {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+#pluginTranscriptContainer .user-message {
+  background-color: #e0f7fa;
+  color: #00796b;
+  text-align: right;
+}
+
+#pluginStartButton, #pluginStopButton, #pluginClearButton, #pluginVoiceSelect {
+  padding: 8px 12px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+#pluginStartButton {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#pluginStartButton:hover {
+  background-color: #45a049;
+}
+
+#pluginStopButton {
+  background-color: #f44336;
+  color: white;
+}
+
+#pluginStopButton:hover {
+  background-color: #d32f2f;
+}
+
+#pluginClearButton {
+  background-color: #fdd835;
+  color: #333;
+}
+
+#pluginClearButton:hover {
+  background-color: #fbc02d;
+}
+
+#pluginVoiceSelect {
+  width: 100%;
+  margin-bottom: 10px;
+}
